@@ -111,15 +111,21 @@ exports.verifyOtp = (req, res, next) => {
 //! LOGIN USER
 exports.login = async(req, res, next) => {
 
-    const { email, password } = req.body;
+    const { email, password, fcmToken } = req.body;
     let auth = await AuthSchema.findOne({ email: email });
 
     if (auth !== null) {
-
         const validPassword = compareSync(password, auth.password);
-
         if (validPassword) {
-            res.status(200).json(auth);
+
+            auth.updateOne({ fcmToken: fcmToken }, ).then().then((result) => {
+                auth.fcmToken = fcmToken;
+                res.status(200).json(auth);
+            }).catch(err => {
+                res.status(200).json(auth);
+                console.log(err)
+            })
+
         } else {
             res.status(404).json({ error: "Invalid email or password", success: false });
         }

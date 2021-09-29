@@ -66,6 +66,11 @@ const authSchema = new AuthSchema({
         type: String,
         required: true,
     },
+    fcmToken: {
+        type: String,
+        required: false,
+    },
+
 
     address: addressSchema
 
