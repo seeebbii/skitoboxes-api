@@ -47,8 +47,6 @@ async function sendOtp(body) {
 //! REGISTER USER 
 exports.register = async(req, res, next) => {
 
-    const salt = genSaltSync(10);
-    req.body.password = hashSync(req.body.password, salt);
 
     //! CHECKING IF EMAIL EXISTS OR NOT
     let emailExists = await AuthSchema.findOne({ email: req.body.email });
@@ -83,6 +81,8 @@ exports.register = async(req, res, next) => {
 
 //! VERIFY OTP AND CREATE ACCOUNT
 exports.verifyOtp = (req, res, next) => {
+    const salt = genSaltSync(10);
+    req.body.password = hashSync(req.body.password, salt);
 
     client.verify.services(service_sid).verificationChecks
         .create({
