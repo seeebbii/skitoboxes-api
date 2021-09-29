@@ -48,7 +48,6 @@ const addressSchema = new AddressSchema({
 
 
 const authSchema = new AuthSchema({
-
     username: {
         type: String,
         required: true,
