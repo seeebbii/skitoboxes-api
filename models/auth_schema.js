@@ -70,6 +70,10 @@ const authSchema = new AuthSchema({
         type: String,
         required: false,
     },
+    imageUrl: {
+        type: String,
+        required: false,
+    },
 
 
     address: addressSchema
