@@ -83,7 +83,6 @@ exports.register = async(req, res, next) => {
 exports.verifyOtp = (req, res, next) => {
     const salt = genSaltSync(10);
     req.body.password = hashSync(req.body.password, salt);
-
     client.verify.services(service_sid).verificationChecks
         .create({
             to: req.body.phoneNumber,
